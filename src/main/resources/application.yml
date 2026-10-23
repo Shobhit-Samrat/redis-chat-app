@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: redis-chat-app
+  data:
+    redis:
+      # Cloud: set REDIS_URL (e.g. rediss://default:<password>@host:port). Local: host/port below are used.
+      url: ${REDIS_URL:}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2s
+
+server:
+  port: ${PORT:8080}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+chat:
+  # Sending messages / opening the live stream requires having joined the room first.
+  require-membership: true
+  # Redis List is trimmed to the newest N messages per room (bounded memory).
+  max-messages-per-room: 1000
+  default-history-limit: 10
+  max-history-limit: 100
+  sse-timeout: 30m
